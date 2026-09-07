@@ -2,8 +2,6 @@ import './App.css'
 
 function App() {
 
-  alert('JavaScriptを実行')
-
   return (
     <>
       <h1>Hello World</h1>
