@@ -1,3 +1,4 @@
+import { useState } from "react";
 import './App.css'
 
 function App() {
@@ -31,16 +32,21 @@ function App() {
     },
   ];
 
+  const [keyword, setKeyword] = useState("");
 
   return (
     <>
-      {defaultMovieList.map((movie) => (
-        <div key={movie.id}>
-          <h2>{movie.name}</h2>
-          <img src={movie.image} alt={movie.name} />
-          <p>{movie.overview}</p>
-        </div>
-      ))}
+      <div>{keyword}</div>
+      <input type="text" onChange={(e) => setKeyword(e.target.value)} />
+      {defaultMovieList
+        .filter((movie) => movie.name.includes(keyword))
+        .map((movie) => (
+          <div key={movie.id}>
+            <h2>{movie.name}</h2>
+            <img src={movie.image} alt={movie.name} />
+            <p>{movie.overview}</p>
+          </div>
+        ))}
     </>
   )
 }
