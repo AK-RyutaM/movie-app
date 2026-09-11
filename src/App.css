@@ -288,6 +288,9 @@ body {
   color: #e4e4e4;
   margin-bottom: 20px;
   text-shadow: 0 2px 16px #000a;
+  text-align: justify;
+  text-justify: inter-character;
+  overflow-wrap: anywhere;
 }
 
 .hero-section-actions {
@@ -302,6 +305,10 @@ body {
   padding: 12px 28px;
   border: none;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: #fff;
   color: #111;
   display: flex;

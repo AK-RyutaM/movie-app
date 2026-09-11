@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
+import { Link } from "react-router";
 import './App.css';
 
 type Movie = {
@@ -85,9 +86,9 @@ function App() {
             <button className="hero-section-btn hero-section-btn-primary">
               ▶ Play
             </button>
-            <button className="hero-section-btn hero-section-btn-secondary">
+            <Link to="/movies/372058" className="hero-section-btn hero-section-btn-secondary">
               More Info
-            </button>
+            </Link>
           </div>
         </div>
       </section>

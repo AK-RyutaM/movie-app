@@ -42,6 +42,10 @@ type MovieDetailJson = {
     video: boolean;
     vote_average: number;
     vote_count: number;
+    credits?: {
+        cast: { id: number; name: string; character: string; order: number }[];
+        crew: { id: number; name: string; job: string }[];
+    };
 };
 
 type Movie = {
@@ -54,6 +58,8 @@ type Movie = {
     runtime: number;
     score: number;
     genres: string[];
+    cast: { id: number; name: string; character: string }[];
+    director: string | null;
 };
 
 function MovieDetail() {
@@ -62,7 +68,7 @@ function MovieDetail() {
 
     const fetchMovieDetail = async () => {
         const response = await fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}?language=ja`,
+            `https://api.themoviedb.org/3/movie/${movieId}?language=ja&append_to_response=credits`,
             {
                 headers: {
                     Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
@@ -83,6 +89,9 @@ function MovieDetail() {
             genres: data.genres.map(
                 (genre: { id: number; name: string }) => genre.name
             ),
+            cast: data.credits?.cast ?? [],
+            director:
+                data.credits?.crew.find((member) => member.job === "Director")?.name ?? null,
         });
     };
 
@@ -137,6 +146,29 @@ function MovieDetail() {
                                         </span>
                                     ))}
                                 </div>
+                                {(movie.director || movie.cast.length > 0) && (
+                                    <div className="movie-detail-credits">
+                                        {movie.director && (
+                                            <div className="movie-detail-director-block">
+                                                <span className="movie-detail-cast-label">監督</span>
+                                                <p className="movie-detail-director-name">{movie.director}</p>
+                                            </div>
+                                        )}
+                                        {movie.cast.length > 0 && (
+                                            <div className="movie-detail-cast-block">
+                                                <span className="movie-detail-cast-label">出演</span>
+                                                <div className="movie-detail-cast-list">
+                                                    {movie.cast.map((person) => (
+                                                        <span className="movie-detail-cast-tag" key={person.id}>
+                                                            {person.name}
+                                                            {person.character && `（${person.character}）`}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                                 <div className="movie-detail-actions">
                                     <button className="movie-detail-btn movie-detail-btn-primary">
                                         ▶ Watch Now
