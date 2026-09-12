@@ -1,31 +1,39 @@
 # 映画アプリ
 
-React、TypeScript、Viteで作成した映画一覧アプリです。映画のタイトル・画像・あらすじを表示し、入力したキーワードで映画を絞り込めます。
+TMDB API から映画情報を取得して表示する、React・TypeScript・Vite 製の映画検索アプリです。人気映画の一覧、タイトル検索、映画詳細の表示に対応しています。
+
+## 主な機能
+
+- 人気映画の一覧表示
+- 映画タイトルによる検索
+- 映画の詳細表示（あらすじ、ジャンル、上映時間、評価、監督、出演者）
 
 ## 使用技術
 
 - React
 - TypeScript
 - Vite
+- React Router
+- TMDB API
 - CSS
 
 ## セットアップ
 
-Node.jsを用意し、プロジェクトのフォルダで実行します。
+Node.js を用意したうえで、プロジェクトのフォルダで依存関係をインストールします。
 
 ```bash
 npm install
 ```
 
-## TMDB APIの設定
+## TMDB API の設定
 
-映画情報の取得にはTMDB APIを使用します。プロジェクト直下（`package.json` と同じ場所）に `.env` ファイルを作成し、アクセストークンを設定してください。
+映画情報の取得には [TMDB API](https://www.themoviedb.org/documentation/api) を使用します。プロジェクト直下に `.env` ファイルを作成し、TMDB で発行した API Read Access Token を設定してください。
 
 ```env
 VITE_TMDB_ACCESS_TOKEN=あなたのTMDBアクセストークン
 ```
 
-`.env` は `.gitignore` に登録済みです。アクセストークンをGitHubなどに公開しないでください。
+`.env` は Git 管理の対象外です。アクセストークンを GitHub などへ公開しないでください。値を変更した場合は、開発サーバーを再起動する必要があります。
 
 ## 開発サーバーの起動
 
@@ -33,43 +41,21 @@ VITE_TMDB_ACCESS_TOKEN=あなたのTMDBアクセストークン
 npm run dev
 ```
 
-表示されたURL（通常は `http://localhost:5173`）をブラウザで開いてください。
+表示された URL（通常は `http://localhost:5173`）をブラウザで開いてください。
+
+映画データとポスター画像は TMDB から取得するため、利用にはインターネット接続が必要です。
 
 ## その他のコマンド
 
 ```bash
-npm run build    # TypeScriptのチェックと本番用ビルド
-npm run lint     # ESLintによるコードチェック
+npm run build    # TypeScript のチェックと本番用ビルド
+npm run lint     # ESLint によるコードチェック
 npm run preview  # ビルドしたアプリを確認
 ```
 
 ## 主なファイル
 
-- `src/App.tsx`：映画データと画面表示を定義するメインコンポーネント
-- `src/App.css`：Appコンポーネント用のスタイル
-- `src/index.css`：アプリ全体に適用するスタイル
-- `src/main.tsx`：Reactアプリのエントリーポイント
-
-## 現在のAPI処理
-
-`src/App.tsx` の `fetchMovieList` が、画面の初回表示時にTMDBの人気映画一覧を取得します。
-取得結果は現在ブラウザの開発者ツールのコンソールに表示しています。画面には、確認用に定義した `defaultMovieList` を表示しています。
-
-## 検索
-
-検索欄に文字を入力すると、`defaultMovieList` の映画タイトルを対象に絞り込みます。
-
-## 映画データの追加
-
-映画データは `src/App.tsx` の `defaultMovieList` 配列に定義しています。
-
-```ts
-{
-  id: 5,
-  name: "映画のタイトル",
-  image: "画像のURL",
-  overview: "映画のあらすじ",
-}
-```
-
-画像は外部URLを使用しているため、表示にはインターネット接続が必要です。
+- `src/App.tsx`：映画一覧と検索画面
+- `src/MovieCard.tsx`：映画カード
+- `src/MovieDetail.tsx`：映画詳細画面
+- `src/main.tsx`：ルーティングとアプリのエントリーポイント

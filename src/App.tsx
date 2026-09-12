@@ -56,9 +56,10 @@ function App() {
 
   useEffect(() => {
     fetchMovieList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyword]);
 
-  const heroTitle = "君の名は";
+  const heroTitle = "君の名は。";
   const heroYear = 2016;
   const heroOverview =
     "1ヵ月後に1000年ぶりの彗星が訪れる日本。東京で暮らす平凡な男子高校生・瀧と、山深い村で都会の生活に憧れながら憂鬱な日々を送る女子高校生・三葉。つながりのない2人は、互いが入れ替わる不思議な夢を見る。";
